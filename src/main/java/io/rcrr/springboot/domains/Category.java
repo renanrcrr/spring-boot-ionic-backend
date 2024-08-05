@@ -1,12 +1,15 @@
-package io.rcrr.springboot.domain;
+package io.rcrr.springboot.domains;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,14 +19,17 @@ public class Category implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
+	private String name;
+	
+	@ManyToMany(mappedBy="categories")
+	private List<Product> products = new ArrayList<>();
 	
 	public Category() {}
 	
-	public Category(Integer id, String nome) {
+	public Category(Integer id, String name) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.name = name;
 	}
 
 	@Override
@@ -49,12 +55,18 @@ public class Category implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String name) {
+		this.name = name;
 	}
-	
-	
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
 }

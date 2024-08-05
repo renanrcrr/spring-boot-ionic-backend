@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.rcrr.springboot.domain.Category;
+import io.rcrr.springboot.domains.Category;
 import io.rcrr.springboot.repositories.CategoryRepository;
 
 @Service

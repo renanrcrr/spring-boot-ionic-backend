@@ -8,6 +8,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import io.rcrr.springboot.domains.enums.ClientType;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +33,8 @@ public class Client implements Serializable {
 	@OneToMany(mappedBy="client")
 	private List<Address> addresses = new ArrayList<>();
 	
+	@ElementCollection
+	@CollectionTable(name="Telefone")
 	private Set<String> telephones = new HashSet<>();
 	
 	public Client() {}

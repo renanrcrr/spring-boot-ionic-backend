@@ -29,10 +29,12 @@ public class Address implements Serializable {
 	@JoinColumn(name="client_id")
 	private Client client;
 	
+	private City city;
+	
 	public Address() {}
 
 	public Address(Integer id, String street, String number, String completement, String neighborhood,
-			String postalCode, Client client) {
+			String postalCode, Client client, City city) {
 		super();
 		this.id = id;
 		this.street = street;
@@ -41,8 +43,9 @@ public class Address implements Serializable {
 		this.neighborhood = neighborhood;
 		this.postalCode = postalCode;
 		this.client = client;
+		this.city = city;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -58,6 +61,14 @@ public class Address implements Serializable {
 			return false;
 		Address other = (Address) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
 	}
 
 	public Integer getId() {

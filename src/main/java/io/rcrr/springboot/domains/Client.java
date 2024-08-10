@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import io.rcrr.springboot.domains.enums.ClientType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
@@ -30,6 +32,7 @@ public class Client implements Serializable {
 	private String cpfOrCnpj;
 	private Integer clientType;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="client")
 	private List<Address> addresses = new ArrayList<>();
 	

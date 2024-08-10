@@ -26,7 +26,7 @@ public class Client implements Serializable {
 	private String name;
 	private String email;
 	private String cpfOrCnpj;
-	private ClientType clientType;
+	private Integer clientType;
 	
 	@OneToMany(mappedBy="client")
 	private List<Address> addresses = new ArrayList<>();
@@ -41,7 +41,7 @@ public class Client implements Serializable {
 		this.name = name;
 		this.email = email;
 		this.cpfOrCnpj = cpfOrCnpj;
-		this.clientType = clientType;
+		this.clientType = clientType.getCod();
 	}
 
 	public Integer getId() {
@@ -77,11 +77,11 @@ public class Client implements Serializable {
 	}
 
 	public ClientType getClientType() {
-		return clientType;
+		return ClientType.toEnum(clientType);
 	}
 
 	public void setClientType(ClientType clientType) {
-		this.clientType = clientType;
+		this.clientType = clientType.getCod();
 	}
 
 	public List<Address> getAddresses() {

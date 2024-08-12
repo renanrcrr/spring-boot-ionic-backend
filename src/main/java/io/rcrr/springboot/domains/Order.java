@@ -6,12 +6,26 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="Pedido")
 public class Order implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private Date moment;
 	
+	// Important to avoid the Entity Transient Error when saving an order and its payment
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="order")
 	private Payment payment;
 	
 	private Client client;

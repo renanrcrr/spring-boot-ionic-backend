@@ -4,13 +4,25 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import io.rcrr.springboot.domains.enums.StatePayment;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name="Pagamento")
 public class Payment implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Id
 	private Integer id;
 	private StatePayment statePayment;
 	
+	@OneToOne
+	@JoinColumn(name="order_id")
+	@MapsId
 	private Order order;
 	
 	public Payment() {}

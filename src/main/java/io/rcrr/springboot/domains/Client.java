@@ -38,7 +38,9 @@ public class Client implements Serializable {
 	
 	@ElementCollection
 	@CollectionTable(name="Telefone")
-	private Set<String> telephones = new HashSet<>();
+	private Set<String> telephones = new HashSet<>();  
+	
+	private List<Order> orders = new ArrayList<>();
 	
 	public Client() {}
 
@@ -122,5 +124,13 @@ public class Client implements Serializable {
 
 	public void setTelephones(Set<String> telephones) {
 		this.telephones = telephones;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 }

@@ -1,13 +1,14 @@
 package io.rcrr.springboot.domains.enums;
 
-public enum ClientType {
-	INDIVIDUAL(1, "Individual"),
-	LEGAL_ENTITY(2, "Legal Entity");
+public enum StatePayment {
+	PENDING(1, "Pending"), 
+	PAID(2, "Paid"), 
+	CANCELLED(3, "Cancelled");
 	
 	private int cod;
 	private String description;
 	
-	private ClientType(int cod, String description) {
+	private StatePayment(int cod, String description) {
 		this.cod = cod;
 		this.description = description;
 	}
@@ -16,16 +17,16 @@ public enum ClientType {
 		return cod;
 	}
 
-	public String getDescription() {
+	public String getDescripton() {
 		return description;
 	}
 	
-	public static ClientType toEnum(Integer cod) {
+	public static StatePayment toEnum(Integer cod) {
 		if(cod == null) {
 			return null;
 		}
 		
-		for(ClientType c : ClientType.values()) {
+		for(StatePayment c : StatePayment.values()) {
 			if(cod.equals(c.getCod())) {
 				return c;
 			}

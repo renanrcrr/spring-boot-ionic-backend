@@ -15,6 +15,7 @@ public class PaymentWithBankSlip extends Payment {
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dueDate;
+	
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date paymentDate;
 	

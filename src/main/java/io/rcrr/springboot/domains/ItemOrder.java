@@ -90,6 +90,4 @@ public class ItemOrder implements Serializable {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	
-	
 }

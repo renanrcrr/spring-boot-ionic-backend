@@ -3,7 +3,7 @@ package io.rcrr.springboot.domains;
 import java.io.Serializable;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.rcrr.springboot.domains.enums.StatePayment;
 import jakarta.persistence.Entity;
@@ -25,7 +25,7 @@ public abstract class Payment implements Serializable {
 	private Integer id;
 	private Integer state;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="pedido_id")
 	@MapsId

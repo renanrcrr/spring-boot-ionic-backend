@@ -2,7 +2,9 @@ package io.rcrr.springboot.domains;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -34,6 +36,8 @@ public class Order implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="endereco_entrega_id")
 	private Address deliveryAddress;
+	
+	private Set<ItemOrder> items = new HashSet<>();
 	
 	public Order() {}
 
@@ -100,5 +104,13 @@ public class Order implements Serializable {
 
 	public void setDeliveryAddress(Address deliveryAddress) {
 		this.deliveryAddress = deliveryAddress;
+	}
+
+	public Set<ItemOrder> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<ItemOrder> items) {
+		this.items = items;
 	}
 }

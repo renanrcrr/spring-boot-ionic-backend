@@ -95,5 +95,6 @@ public class SpringbootApplication implements CommandLineRunner{
 		clientRepository.saveAll(Arrays.asList(cli1));
 		addressRepository.saveAll(Arrays.asList(a1, a2));
 		
+		
 	}
 }

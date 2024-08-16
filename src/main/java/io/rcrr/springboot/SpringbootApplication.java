@@ -1,5 +1,6 @@
 package io.rcrr.springboot;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +12,20 @@ import io.rcrr.springboot.domains.Address;
 import io.rcrr.springboot.domains.Category;
 import io.rcrr.springboot.domains.City;
 import io.rcrr.springboot.domains.Client;
+import io.rcrr.springboot.domains.Order;
+import io.rcrr.springboot.domains.Payment;
+import io.rcrr.springboot.domains.PaymentWithBankSlip;
+import io.rcrr.springboot.domains.PaymentWithCard;
 import io.rcrr.springboot.domains.Product;
 import io.rcrr.springboot.domains.State;
 import io.rcrr.springboot.domains.enums.ClientType;
+import io.rcrr.springboot.domains.enums.StatePayment;
 import io.rcrr.springboot.repositories.AddressRepository;
 import io.rcrr.springboot.repositories.CategoryRepository;
 import io.rcrr.springboot.repositories.CityRepository;
 import io.rcrr.springboot.repositories.ClientRepository;
+import io.rcrr.springboot.repositories.OrderRepository;
+import io.rcrr.springboot.repositories.PaymentRepository;
 import io.rcrr.springboot.repositories.ProductRepository;
 import io.rcrr.springboot.repositories.StateRepository;
 
@@ -40,6 +48,12 @@ public class SpringbootApplication implements CommandLineRunner{
 	
 	@Autowired
 	private AddressRepository addressRepository;
+	
+	@Autowired
+	private OrderRepository orderRepository;
+	
+	@Autowired
+	private PaymentRepository paymentRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootApplication.class, args);
@@ -94,6 +108,24 @@ public class SpringbootApplication implements CommandLineRunner{
 		
 		clientRepository.saveAll(Arrays.asList(cli1));
 		addressRepository.saveAll(Arrays.asList(a1, a2));
+		
+		System.out.println("------------ Order, Payment, PaymentWithBankSlip, PaymentWithCard and StatePayment ------------");
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Order ord1 = new Order(null, sdf.parse("15/08/2024 10:32"), cli1, a1);
+		Order ord2 = new Order(null, sdf.parse("15/08/2024 19:42"), cli1, a2);
+		
+		Payment pay1 = new PaymentWithCard(null, StatePayment.PAID, ord1, 6);
+		ord1.setPayment(pay1);
+		
+		Payment pay2 = new PaymentWithBankSlip(null, StatePayment.PENDING, ord2, sdf.parse("20/04/2024 00:00"), null); // Payment date is null because it was not paid yet.
+		ord2.setPayment(pay2);
+		
+		cli1.getOrders().addAll(Arrays.asList(ord1, ord2));
+		
+		orderRepository.saveAll(Arrays.asList(ord1, ord2));
+		paymentRepository.saveAll(Arrays.asList(pay1, pay2));
 		
 		
 	}

@@ -3,6 +3,8 @@ package io.rcrr.springboot.domains;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -12,6 +14,7 @@ import jakarta.persistence.Table;
 public class ItemOrder implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore
 	@EmbeddedId
 	private ItemOrderPK id = new ItemOrderPK();
 	
@@ -47,6 +50,7 @@ public class ItemOrder implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}

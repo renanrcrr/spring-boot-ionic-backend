@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -37,6 +38,7 @@ public class Order implements Serializable {
 	@JoinColumn(name="endereco_entrega_id")
 	private Address deliveryAddress;
 	
+	@OneToMany(mappedBy="id.order")
 	private Set<ItemOrder> items = new HashSet<>();
 	
 	public Order() {}

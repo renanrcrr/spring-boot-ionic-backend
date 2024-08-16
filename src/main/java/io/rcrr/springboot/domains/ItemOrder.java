@@ -3,10 +3,16 @@ package io.rcrr.springboot.domains;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="Item_Pedido")
 public class ItemOrder implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	// Compound attribute
+	@EmbeddedId
 	private ItemOrderPK id = new ItemOrderPK();
 	
 	private Double discount;

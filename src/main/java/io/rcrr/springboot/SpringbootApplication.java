@@ -12,6 +12,7 @@ import io.rcrr.springboot.domains.Address;
 import io.rcrr.springboot.domains.Category;
 import io.rcrr.springboot.domains.City;
 import io.rcrr.springboot.domains.Client;
+import io.rcrr.springboot.domains.ItemOrder;
 import io.rcrr.springboot.domains.Order;
 import io.rcrr.springboot.domains.Payment;
 import io.rcrr.springboot.domains.PaymentWithBankSlip;
@@ -24,6 +25,7 @@ import io.rcrr.springboot.repositories.AddressRepository;
 import io.rcrr.springboot.repositories.CategoryRepository;
 import io.rcrr.springboot.repositories.CityRepository;
 import io.rcrr.springboot.repositories.ClientRepository;
+import io.rcrr.springboot.repositories.ItemOrderRepository;
 import io.rcrr.springboot.repositories.OrderRepository;
 import io.rcrr.springboot.repositories.PaymentRepository;
 import io.rcrr.springboot.repositories.ProductRepository;
@@ -54,6 +56,9 @@ public class SpringbootApplication implements CommandLineRunner{
 	
 	@Autowired
 	private PaymentRepository paymentRepository;
+	
+	@Autowired
+	private ItemOrderRepository itemOrderRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootApplication.class, args);
@@ -127,6 +132,20 @@ public class SpringbootApplication implements CommandLineRunner{
 		orderRepository.saveAll(Arrays.asList(ord1, ord2));
 		paymentRepository.saveAll(Arrays.asList(pay1, pay2));
 		
+		System.out.println("------------ ItemOrder ------------");
+		
+		ItemOrder io1 = new ItemOrder(ord1, p1, 0.00, 1, 2000.00);
+		ItemOrder io2 = new ItemOrder(ord1, p3, 0.00, 2, 80.00);
+		ItemOrder io3 = new ItemOrder(ord2, p2, 100.00, 1, 800.00);
+		
+		ord1.getItems().addAll(Arrays.asList(io1, io2));
+		ord2.getItems().addAll(Arrays.asList(io3));
+		
+		p1.getItems().addAll(Arrays.asList(io1));
+		p2.getItems().addAll(Arrays.asList(io3));
+		p3.getItems().addAll(Arrays.asList(io2));
+		
+		itemOrderRepository.saveAll(Arrays.asList(io1, io2, io3));
 		
 	}
 }

@@ -21,6 +21,11 @@ public class CategoryService {
 		
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Object not found! Id: " + id + ", Type: " + Category.class.getName()));
-		
+	}
+	
+	public Category insert(Category obj) {
+		// Id null for new obj, otherwise will be a modification
+		obj.setId(null);
+		return categoryRepository.save(obj);
 	}
 }

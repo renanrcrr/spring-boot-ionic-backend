@@ -17,8 +17,8 @@ public class ClientResource {
 	private ClientService clientService;
 	
 	@GetMapping(value="/{id}")
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Client obj = clientService.search(id); 
+	public ResponseEntity<Client> find(@PathVariable Integer id) {
+		Client obj = clientService.find(id); 
 		
 		return ResponseEntity.ok().body(obj);
 	}	

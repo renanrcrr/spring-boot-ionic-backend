@@ -21,8 +21,7 @@ public class CategoryResource {
 	@Autowired
 	private CategoryService categoryService;
 	
-//	@GetMapping(value="/{id}")
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+ 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Category> find(@PathVariable Integer id) {
 		Category obj = categoryService.find(id); 
 		
@@ -43,6 +42,13 @@ public class CategoryResource {
 	public ResponseEntity<Void> update(@RequestBody Category obj, @PathVariable Integer id) {
 		obj.setId(id);
 		obj = categoryService.update(obj);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		categoryService.delete(id);
 		
 		return ResponseEntity.noContent().build();
 	}

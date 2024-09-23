@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import io.rcrr.springboot.domains.Category;
 import io.rcrr.springboot.dto.CategoryDTO;
 import io.rcrr.springboot.services.CategoryService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value="/categories")
@@ -34,7 +35,8 @@ public class CategoryResource {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	// ResquestBody converts JSON to obj Java automatically
-	public ResponseEntity<Void> insert(@RequestBody Category obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoryDTO objDto) {
+		Category obj = categoryService.fromDTO(objDto); 
 		obj = categoryService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -43,7 +45,8 @@ public class CategoryResource {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Category obj, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoryDTO objDto, @PathVariable Integer id) {
+		Category obj = categoryService.fromDTO(objDto);
 		obj.setId(id);
 		obj = categoryService.update(obj);
 		

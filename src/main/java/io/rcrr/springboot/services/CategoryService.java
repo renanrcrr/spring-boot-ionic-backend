@@ -31,17 +31,24 @@ public class CategoryService {
 	}
 	
 	public Category insert(Category obj) {
+		
 		// Id null for new obj, otherwise will be a modification
 		obj.setId(null);
+		
 		return categoryRepository.save(obj);
 	}
 	
 	public Category update(Category obj) {
-		find(obj.getId());
-		return categoryRepository.save(obj);
+		
+		Category newObj = find(obj.getId());
+		updateData(newObj, obj);
+		
+		return categoryRepository.save(newObj);
 	}
 	
+	
 	public void delete(Integer id) {
+		
 		find(id);
 		try {
 			categoryRepository.deleteById(id);
@@ -52,16 +59,24 @@ public class CategoryService {
 	}
 	
 	public List<Category> findAll() {
+		
 		return categoryRepository.findAll();
 	}
 	
 	public Page<Category> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+		
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		
 		return categoryRepository.findAll(pageRequest);
 	}
 	
 	public Category fromDTO(CategoryDTO objDto) {
+		
 		return new Category(objDto.getId(), objDto.getName());
+	}
+	
+	private void updateData(Category newObj, Category obj) {
+		
+		newObj.setName(obj.getName());
 	}
 }

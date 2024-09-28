@@ -19,10 +19,12 @@ import io.rcrr.springboot.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ClientService {
+	
 	@Autowired
 	private ClientRepository clientRepository;
 	
 	public Client find(Integer id) {
+		
 		Optional<Client> obj = clientRepository.findById(id);
 		
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -31,12 +33,15 @@ public class ClientService {
 	}
 	
 	public Client update(Client obj) {
+		
 		Client newObj = find(obj.getId());
 		updateData(newObj, obj);
+		
 		return clientRepository.save(newObj);
 	}
 	
 	public void delete(Integer id) {
+		
 		find(id);
 		try {
 			clientRepository.deleteById(id);

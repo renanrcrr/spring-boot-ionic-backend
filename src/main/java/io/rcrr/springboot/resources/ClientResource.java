@@ -22,11 +22,13 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping(value="/clients")
 public class ClientResource {
+	
 	@Autowired
 	private ClientService clientService;
 	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<Client> find(@PathVariable Integer id) {
+		
 		Client obj = clientService.find(id); 
 		
 		return ResponseEntity.ok().body(obj);
@@ -34,6 +36,7 @@ public class ClientResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody ClientDTO objDto, @PathVariable Integer id) {
+		
 		Client obj = clientService.fromDTO(objDto);
 		obj.setId(id);
 		obj = clientService.update(obj);
@@ -43,6 +46,7 @@ public class ClientResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		
 		clientService.delete(id);
 		
 		return ResponseEntity.noContent().build();
@@ -50,6 +54,7 @@ public class ClientResource {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<ClientDTO>> findAll() {
+		
 		List<Client> list = clientService.findAll();
 		List<ClientDTO> listDto = list.stream().map(obj -> new ClientDTO(obj)).collect(Collectors.toList()); 
 		
@@ -63,6 +68,7 @@ public class ClientResource {
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="name") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
+		
 		Page<Client> list = clientService.findPage(page, linesPerPage, orderBy, direction);
 		// Como o Page é Java8 compliance, nao preciso usar o stream() e nem o collect()
 		Page<ClientDTO> listDto = list.map(obj -> new ClientDTO(obj)); 
